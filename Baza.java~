@@ -27,3 +27,4 @@ public class Baza
     {
         cartasEnBaza = new ArrayList<Carta>(numJugadores);
     }
+}
