@@ -27,4 +27,8 @@ public class Baza
     {
         cartasEnBaza = new ArrayList<Carta>(numJugadores);
     }
+    
+    public void addCarta(Carta siguienteCarta , String jugadorQueTiro){
+        cartasEnBaza.add(siguienteCarta);
+    }
 }

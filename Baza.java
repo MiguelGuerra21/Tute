@@ -31,4 +31,10 @@ public class Baza
     public void addCarta(Carta siguienteCarta , String jugadorQueTiro){
         cartasEnBaza.add(siguienteCarta);
     }
+    
+    public int getPaloPrimeraCarta(){
+        int paloBaza = -1;
+        paloBaza = cartasEnBaza.get(0).getPalo();
+        return paloBaza;
+    }
 }
