@@ -19,6 +19,11 @@ y que devuelve el nombre del jugador que va ganando la baza en el momento actual
 public class Baza
 {
     private ArrayList<Carta> cartasEnBaza ;
+    private ArrayList<String> nombresJugadores ;
+    private int paloQuePinta;
+    Carta cartaGanadora = null;
+    int contadorJugadores = 0;
+    
 
     /**
      * Constructor for objects of class Baza
@@ -26,15 +31,33 @@ public class Baza
     public Baza(int numJugadores, int paloQuePinta)
     {
         cartasEnBaza = new ArrayList<Carta>(numJugadores);
+        nombresJugadores = new ArrayList<String>(numJugadores);
+        this.paloQuePinta = paloQuePinta;
     }
     
     public void addCarta(Carta siguienteCarta , String jugadorQueTiro){
         cartasEnBaza.add(siguienteCarta);
+        nombresJugadores.add(jugadorQueTiro);
     }
     
     public int getPaloPrimeraCarta(){
         int paloBaza = -1;
         paloBaza = cartasEnBaza.get(0).getPalo();
         return paloBaza;
+    }
+    
+    public Carta cartaQueVaGanando(){
+        cartaGanadora = cartasEnBaza.get(0);
+        for(Carta cartaActual : cartasEnBaza){
+            if(cartaActual.ganaA(cartaGanadora , paloQuePinta)){
+                cartaGanadora = cartaActual;
+                contadorJugadores++;
+            }
+        }
+        return cartaGanadora;
+    }
+    public String nombreJugadorQueVaGanando(){
+        String nombreGanador = nombresJugadores.get(contadorJugadores);
+        return nombreGanador;
     }
 }
