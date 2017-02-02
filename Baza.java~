@@ -12,7 +12,7 @@ El segundo parámetro indica el nombre del jugador que tiro la carta. El método
 o -1 en caso de que no se haya añadido aún ninguna carta.
 - Tenga un método llamado cartaQueVaGanandoLaBaza sin parámetros que devuelva un objeto Carta. 
 Este objeto carta es la carta que va ganando la baza conforme a las normas del julepe.
- En caso de que la baza este vacía este método devuelve null.
+En caso de que la baza este vacía este método devuelve null.
 - Tenga un método llamado nombreJugadorQueVaGanandoLaBaza que no admite parámetros 
 y que devuelve el nombre del jugador que va ganando la baza en el momento actual.
  */
@@ -21,9 +21,8 @@ public class Baza
     private ArrayList<Carta> cartasEnBaza ;
     private ArrayList<String> nombresJugadores ;
     private int paloQuePinta;
-    Carta cartaGanadora = null;
-    int contadorJugadores = 0;
-    
+    Carta cartaGanadora;
+    int contadorJugadores;
 
     /**
      * Constructor for objects of class Baza
@@ -33,30 +32,38 @@ public class Baza
         cartasEnBaza = new ArrayList<Carta>(numJugadores);
         nombresJugadores = new ArrayList<String>(numJugadores);
         this.paloQuePinta = paloQuePinta;
+        contadorJugadores = 0;
+        cartaGanadora = null;
     }
-    
+
     public void addCarta(Carta siguienteCarta , String jugadorQueTiro){
         cartasEnBaza.add(siguienteCarta);
         nombresJugadores.add(jugadorQueTiro);
-        cartaQueVaGanando();
     }
-    
+
     public int getPaloPrimeraCarta(){
         int paloBaza = -1;
-        paloBaza = cartasEnBaza.get(0).getPalo();
+        if(cartasEnBaza.get(0) != null){
+            paloBaza = cartasEnBaza.get(0).getPalo();
+        }
         return paloBaza;
     }
-    
+
     public Carta cartaQueVaGanando(){
-        cartaGanadora = cartasEnBaza.get(0);
-        for(Carta cartaActual : cartasEnBaza){
-            if(cartaActual.ganaA(cartaGanadora , paloQuePinta)){
-                cartaGanadora = cartaActual;
-                contadorJugadores++;
+        if(!cartasEnBaza.isEmpty()){
+            cartaGanadora = cartasEnBaza.get(0);
+            for(Carta cartaActual : cartasEnBaza){
+                if(cartaActual.ganaA(cartaGanadora , paloQuePinta)){
+                    cartaGanadora = cartaActual;
+                    contadorJugadores++;
+                }
             }
         }
+        contadorJugadores = 0;
         return cartaGanadora;
+
     }
+
     public String nombreJugadorQueVaGanando(){
         String nombreGanador = nombresJugadores.get(contadorJugadores);
         return nombreGanador;
